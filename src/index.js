@@ -17,6 +17,6 @@ const update = () => {
 
 update();
 
-$(document).ready(function () {
+$(document).ready(() => {
   main();
 });

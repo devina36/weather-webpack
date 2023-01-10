@@ -4,7 +4,7 @@ import { now } from 'moment';
 import { loader } from './loader';
 import './component/search-bar.js';
 
-function main() {
+const main = () => {
   const baseURL = 'https://api.openweathermap.org/data/2.5';
   const key = '3d714d62bd9af8812a0bd4845472789b';
   const searchElement = document.querySelector('search-bar');
@@ -58,7 +58,7 @@ function main() {
     }
   };
 
-  function renderWheater(data) {
+  const renderWheater = (data) => {
     const $loader = $('<div>').addClass('loader');
     $loader.html(loader);
     $('#main').empty().append($loader);
@@ -128,17 +128,17 @@ function main() {
     setTimeout(function () {
       $('#main').empty().append($weather);
     }, 2000);
-  }
+  };
 
-  function celcius(temp) {
+  const celcius = (temp) => {
     const celcius = temp - 273.15;
     return Math.floor(celcius);
-  }
+  };
 
-  function getDayName(dateStr, locale) {
+  const getDayName = (dateStr, locale) => {
     let date = new Date(dateStr);
     return date.toLocaleDateString(locale, { weekday: 'long' });
-  }
+  };
 
   const onButtonSearchClicked = () => {
     city = searchElement.value;
@@ -148,5 +148,5 @@ function main() {
   searchElement.clickEvent = onButtonSearchClicked;
 
   getWeather();
-}
+};
 export default main;
