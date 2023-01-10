@@ -2,10 +2,13 @@ import axios from 'axios';
 import $ from 'jquery';
 import { now } from 'moment';
 import { loader } from './loader';
+import './component/search-bar.js';
 
 function main() {
   const baseURL = 'https://api.openweathermap.org/data/2.5';
   const key = '3d714d62bd9af8812a0bd4845472789b';
+  const searchElement = document.querySelector('search-bar');
+
   let weatherNow;
 
   function importAll(r) {
@@ -19,7 +22,8 @@ function main() {
 
   importAll(require.context('../asset/img', false, /\.(png|jpe?g|svg)$/));
 
-  const getWeather = async (city) => {
+  let city = 'Jakarta';
+  const getWeather = async () => {
     let lat;
     let lon;
 
@@ -136,17 +140,13 @@ function main() {
     return date.toLocaleDateString(locale, { weekday: 'long' });
   }
 
-  $(document).ready(function () {
-    $('form').on('submit', function (e) {
-      e.preventDefault();
-      const city = $('#search').val();
-      if (city) {
-        getWeather(city);
-        $('#search').val('');
-      }
-    });
+  const onButtonSearchClicked = () => {
+    city = searchElement.value;
+    getWeather();
+  };
 
-    getWeather('Jakarta');
-  });
+  searchElement.clickEvent = onButtonSearchClicked;
+
+  getWeather();
 }
 export default main;
